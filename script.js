@@ -1,5 +1,5 @@
 /**
- * Haikou Gnord Trading Co., LTD - Website JavaScript
+ * Gnord Strular Furniture & Interior Solution - Website JavaScript
  * Features: Hero Slider, Mobile Menu, Product Gallery, Form Validation, Google Analytics Tracking
  */
 
@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initSmoothScroll();
     initAnalyticsTracking();
     initScrollAnimations();
+    initFAQ();
 });
 
 /**
@@ -63,7 +64,7 @@ function initHeroSlider() {
     
     let currentSlide = 0;
     let slideInterval;
-    const slideDuration = 2000; // 2 seconds as per PRD
+    const slideDuration = 3600; // 3.6 seconds
     
     function showSlide(index) {
         // Remove active class from all slides and dots
@@ -131,20 +132,33 @@ function initHeroSlider() {
     
     // Pause on hover
     const slider = document.querySelector('.hero-slider');
+    let isHovering = false;
+    
     if (slider) {
-        slider.addEventListener('mouseenter', stopAutoSlide);
-        slider.addEventListener('mouseleave', startAutoSlide);
+        slider.addEventListener('mouseenter', () => {
+            isHovering = true;
+            stopAutoSlide();
+        });
+        slider.addEventListener('mouseleave', () => {
+            isHovering = false;
+            startAutoSlide();
+        });
     }
     
-    // Start auto-slide
-    startAutoSlide();
+    // Start auto-slide after a short delay to ensure proper initialization
+    setTimeout(() => {
+        // Only start if not hovering
+        if (!isHovering) {
+            startAutoSlide();
+        }
+    }, 500);
 }
 
 /**
  * Product Detail Gallery
  */
 function initProductGallery() {
-    const thumbnails = document.querySelectorAll('.thumbnail');
+    const thumbnails = document.querySelectorAll('.thumbnail-v, .thumbnail');
     const mainImage = document.getElementById('mainImage');
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
@@ -159,8 +173,14 @@ function initProductGallery() {
         const thumbnail = thumbnails[index];
         if (!thumbnail) return;
         
-        // Update main image
-        mainImage.src = thumbnail.src.replace('w=200&h=200', 'w=800&h=600');
+        // Update main image - use the same source as thumbnail for local images
+        // For Unsplash images, replace size params; for local images, use as-is
+        const thumbSrc = thumbnail.src;
+        if (thumbSrc.includes('unsplash.com')) {
+            mainImage.src = thumbSrc.replace('w=200&h=200', 'w=800&h=600');
+        } else {
+            mainImage.src = thumbSrc;
+        }
         mainImage.alt = thumbnail.alt.replace('Product view', 'Main product image');
         
         // Update thumbnails
@@ -626,3 +646,34 @@ window.addEventListener('load', () => {
     const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
     trackEvent('performance', 'page_load_time', null, loadTime);
 });
+
+/**
+ * FAQ Accordion Functionality
+ */
+function initFAQ() {
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    
+    if (!faqQuestions.length) return;
+    
+    faqQuestions.forEach(question => {
+        question.addEventListener('click', function() {
+            const isExpanded = this.getAttribute('aria-expanded') === 'true';
+            const answer = this.nextElementSibling;
+            
+            // Close all other answers
+            faqQuestions.forEach(q => {
+                if (q !== this) {
+                    q.setAttribute('aria-expanded', 'false');
+                    q.nextElementSibling.classList.remove('active');
+                }
+            });
+            
+            // Toggle current answer
+            this.setAttribute('aria-expanded', !isExpanded);
+            answer.classList.toggle('active');
+            
+            // Track FAQ interaction
+            trackEvent('faq', 'question_toggle', isExpanded ? 'close' : 'open');
+        });
+    });
+}
