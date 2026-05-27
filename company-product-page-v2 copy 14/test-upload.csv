@@ -1,0 +1,3 @@
+No.,Product MF ID,Product Barcode ID,Product Name,Product QTY,Boxes QTY,Boxes Barcode ID,Container Info,Product Status,Note
+1,MF-001,PROD-123456-1,Premium Plywood Kitchen Cabinet with Custom Dimensions and Special Finish,10,1,BOX-123456-1,CON-2024-001,Making,This is a long note that demonstrates the hover functionality for the Note column. It contains detailed information about the product specifications and requirements.
+2,MF-002,PROD-123456-2,Pure Solid Wood Wardrobe with Modern Design and Soft-Close Hardware,5,1,BOX-123456-2,CON-2024-001,Packed,Another long note with additional details about delivery requirements and special handling instructions for this product.

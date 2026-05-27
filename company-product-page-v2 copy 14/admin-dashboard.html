@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Admin Dashboard - Gnord Strular Furniture & Interior Solution">
+    <meta name="keywords" content="admin, dashboard, user management, system control">
+    <meta name="author" content="Gnord Strular Furniture & Interior Solution">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Admin Dashboard | Gnord Strular Furniture & Interior Solution</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Hide any mobile card elements that might appear in admin dashboard */
+        .mobile-order-card,
+        .mobile-cards-container {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header" role="banner">
+        <nav class="main-nav" aria-label="Main Navigation">
+            <div class="nav-container">
+                <a href="index.html" class="logo" aria-label="Haikou Gnord Trading Home">
+                    <img src="image/1616-gnord-strular-luxury-full-house-solution-brand-logo.png" alt="Gnord Strular official brand logo, representing luxury full house solutions specializing in integrated cabinetry where the cabinet, wall, and door are the same color. Kitchen, wardrobe, crockery cabinet,TV unit, walk-in closet, entrance mudroom cabinet, with quartz counter top" class="logo-img" width="160" height="45">
+                </a>
+                
+                <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                    <span class="hamburger"></span>
+                </button>
+                
+                <ul class="nav-links" role="menubar">
+                    <li role="none"><a href="index.html#home" role="menuitem">Home</a></li>
+                    <li role="none"><a href="index.html#ply-osb" role="menuitem">Ply&OSB</a></li>
+                    <li role="none"><a href="index.html#purewood" role="menuitem">Purewood</a></li>
+                    <li role="none"><a href="index.html#stainless-steel" role="menuitem">Stainless Steel</a></li>
+                    <li role="none"><a href="index.html#work-with-us" role="menuitem">Work With Us</a></li>
+                    <li role="none"><a href="login.html" class="nav-btn login" role="menuitem">Login</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <section class="dashboard-section" aria-labelledby="admin-dashboard-heading">
+            <div class="container">
+                <div class="dashboard-header">
+                    <h1 id="admin-dashboard-heading">Admin Dashboard</h1>
+                    <p class="dashboard-subtitle">Full system control and user management</p>
+                </div>
+
+                <div class="admin-tabs">
+                    <button class="tab-btn active" data-tab="clients">Client Management</button>
+                    <button class="tab-btn" data-tab="partners">Partner Management</button>
+                    <button class="tab-btn" data-tab="orders">All Orders</button>
+                </div>
+
+                <!-- Client Management Section -->
+                <div class="tab-content active" id="clients">
+                    <div class="dashboard-card">
+                        <h2>Client Management</h2>
+                        <div class="action-buttons">
+                            <button type="button" class="btn btn-submit" id="add-client-btn">Add New Client</button>
+                        </div>
+                        <div class="orders-table-container">
+                            <table class="orders-table">
+                                <thead>
+                                    <tr>
+                                        <th>Client ID</th>
+                                        <th>Company Name</th>
+                                        <th>Login Email</th>
+                                        <th>Password</th>
+                                        <th>Status</th>
+                                        <th>Created At</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="clients-table-body">
+                                    <tr>
+                                        <td colspan="7" class="no-data">No clients found</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Partner Management Section -->
+                <div class="tab-content" id="partners">
+                    <div class="dashboard-card">
+                        <h2>Partner Management</h2>
+                        <div class="action-buttons">
+                            <button type="button" class="btn btn-submit" id="add-partner-btn">Add New Partner</button>
+                        </div>
+                        <div class="orders-table-container">
+                            <table class="orders-table">
+                                <thead>
+                                    <tr>
+                                        <th>Company Name</th>
+                                        <th>Login Email</th>
+                                        <th>Password</th>
+                                        <th>Phone</th>
+                                        <th>Status</th>
+                                        <th>Created At</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="partners-table-body">
+                                    <tr>
+                                        <td colspan="7" class="no-data">No partners found</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- All Orders Section -->
+                <div class="tab-content" id="orders">
+                    <div class="dashboard-card">
+                        <h2>All Orders</h2>
+                        <div class="filters-row" style="margin-bottom: 1rem;">
+                            <select id="order-status-filter" class="table-input" style="width: auto; display: inline-block;">
+                                <option value="">All Status</option>
+                                <option value="Pending">Pending</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="Completed">Completed</option>
+                                <option value="Cancelled">Cancelled</option>
+                            </select>
+                            <input type="text" id="order-search" class="table-input" placeholder="Search orders..." style="width: auto; display: inline-block; margin-left: 1rem;">
+                        </div>
+                        <div class="orders-table-container">
+                            <table class="orders-table">
+                                <thead>
+                                    <tr>
+                                        <th>Order Number</th>
+                                        <th>Client</th>
+                                        <th>Partner</th>
+                                        <th>Product Count</th>
+                                        <th>Total Boxes</th>
+                                        <th>Status</th>
+                                        <th>Created Date</th>
+                                        <th>Assigned Client ID</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-orders-body">
+                                    <tr>
+                                        <td colspan="9" class="no-data">No orders found</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Add Client Modal -->
+    <div id="client-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add New Client</h2>
+                <button type="button" class="modal-close" id="close-client-modal">&times;</button>
+            </div>
+            <form id="add-client-form" class="order-form">
+                <div class="form-group">
+                    <label for="client-company">Company Name <span aria-label="required">*</span></label>
+                    <input type="text" id="client-company" name="client-company" required aria-required="true" placeholder="Enter company name">
+                </div>
+                <div class="form-group">
+                    <label for="client-email">Email <span aria-label="required">*</span></label>
+                    <input type="email" id="client-email" name="client-email" required aria-required="true" placeholder="client@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="client-phone">Phone <span aria-label="required">*</span></label>
+                    <input type="tel" id="client-phone" name="client-phone" required aria-required="true" placeholder="Enter phone number">
+                </div>
+                <div class="form-group">
+                    <label for="client-password">Password <span aria-label="required">*</span></label>
+                    <input type="password" id="client-password" name="client-password" required aria-required="true" placeholder="Enter password">
+                </div>
+                <div class="form-group">
+                    <label for="client-address">Address</label>
+                    <textarea id="client-address" name="client-address" rows="3" placeholder="Enter address"></textarea>
+                </div>
+                <button type="submit" class="btn btn-submit">Add Client</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Client Modal -->
+    <div id="edit-client-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Edit Client</h2>
+                <button type="button" class="modal-close" id="close-edit-client-modal">&times;</button>
+            </div>
+            <form id="edit-client-form" class="order-form">
+                <input type="hidden" id="edit-client-id">
+                <div class="form-group">
+                    <label for="edit-client-company">Company Name <span aria-label="required">*</span></label>
+                    <input type="text" id="edit-client-company" name="edit-client-company" required aria-required="true">
+                </div>
+                <div class="form-group">
+                    <label for="edit-client-email">Email <span aria-label="required">*</span></label>
+                    <input type="email" id="edit-client-email" name="edit-client-email" required aria-required="true">
+                </div>
+                <div class="form-group">
+                    <label for="edit-client-password">Password <span aria-label="required">*</span></label>
+                    <input type="password" id="edit-client-password" name="edit-client-password" required aria-required="true">
+                </div>
+                <div class="form-group">
+                    <label for="edit-client-status">Status <span aria-label="required">*</span></label>
+                    <select id="edit-client-status" name="edit-client-status" required aria-required="true">
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
+                        <option value="Suspended">Suspended</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="edit-client-phone">Phone</label>
+                    <input type="tel" id="edit-client-phone" name="edit-client-phone">
+                </div>
+                <div class="form-group">
+                    <label for="edit-client-address">Address</label>
+                    <textarea id="edit-client-address" name="edit-client-address" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn-submit">Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Partner Modal -->
+    <div id="partner-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add New Partner</h2>
+                <button type="button" class="modal-close" id="close-partner-modal">&times;</button>
+            </div>
+            <form id="add-partner-form" class="order-form">
+                <div class="form-group">
+                    <label for="partner-company">Company Name <span aria-label="required">*</span></label>
+                    <input type="text" id="partner-company" name="partner-company" required aria-required="true" placeholder="Enter company name">
+                </div>
+                <div class="form-group">
+                    <label for="partner-email">Email <span aria-label="required">*</span></label>
+                    <input type="email" id="partner-email" name="partner-email" required aria-required="true" placeholder="partner@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="partner-phone">Phone <span aria-label="required">*</span></label>
+                    <input type="tel" id="partner-phone" name="partner-phone" required aria-required="true" placeholder="Enter phone number">
+                </div>
+                <div class="form-group">
+                    <label for="partner-password">Password <span aria-label="required">*</span></label>
+                    <input type="password" id="partner-password" name="partner-password" required aria-required="true" placeholder="Enter password">
+                </div>
+                <div class="form-group">
+                    <label for="partner-address">Address</label>
+                    <textarea id="partner-address" name="partner-address" rows="3" placeholder="Enter address"></textarea>
+                </div>
+                <button type="submit" class="btn btn-submit">Add Partner</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Partner Modal -->
+    <div id="edit-partner-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Edit Partner</h2>
+                <button type="button" class="modal-close" id="close-edit-partner-modal">&times;</button>
+            </div>
+            <form id="edit-partner-form" class="order-form">
+                <input type="hidden" id="edit-partner-id">
+                <div class="form-group">
+                    <label for="edit-partner-company">Company Name <span aria-label="required">*</span></label>
+                    <input type="text" id="edit-partner-company" name="edit-partner-company" required aria-required="true">
+                </div>
+                <div class="form-group">
+                    <label for="edit-partner-email">Email <span aria-label="required">*</span></label>
+                    <input type="email" id="edit-partner-email" name="edit-partner-email" required aria-required="true">
+                </div>
+                <div class="form-group">
+                    <label for="edit-partner-password">Password <span aria-label="required">*</span></label>
+                    <input type="password" id="edit-partner-password" name="edit-partner-password" required aria-required="true">
+                </div>
+                <div class="form-group">
+                    <label for="edit-partner-status">Status <span aria-label="required">*</span></label>
+                    <select id="edit-partner-status" name="edit-partner-status" required aria-required="true">
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
+                        <option value="Suspended">Suspended</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="edit-partner-phone">Phone</label>
+                    <input type="tel" id="edit-partner-phone" name="edit-partner-phone">
+                </div>
+                <div class="form-group">
+                    <label for="edit-partner-address">Address</label>
+                    <textarea id="edit-partner-address" name="edit-partner-address" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn-submit">Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Assign Client to Order Modal -->
+    <div id="assign-client-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Assign Client to Order</h2>
+                <button type="button" class="modal-close" id="close-assign-client-modal">&times;</button>
+            </div>
+            <form id="assign-client-form" class="order-form">
+                <input type="hidden" id="assign-order-number">
+                <div class="form-group">
+                    <label for="assign-client-select">Select Client <span aria-label="required">*</span></label>
+                    <select id="assign-client-select" name="assign-client-select" required aria-required="true">
+                        <option value="">-- Select a Client --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Current Assignment</label>
+                    <div id="current-client-assignment" style="padding: 0.5rem; background: #f5f5f5; border-radius: 4px;">
+                        No client assigned
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-submit">Assign Client</button>
+                <button type="button" class="btn btn-secondary" id="remove-client-assignment" style="margin-left: 0.5rem;">Remove Assignment</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Order Detail Modal -->
+    <div id="order-detail-modal" class="modal" style="display: none;">
+        <div class="modal-content" style="max-width: 900px;">
+            <div class="modal-header">
+                <h2>Order Details</h2>
+                <button type="button" class="modal-close" id="close-order-modal">&times;</button>
+            </div>
+            <div id="order-detail-content">
+                <!-- Order details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <footer class="site-footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>Gnord Strular Furniture & Interior Solution</h3>
+                    <address>
+                        <p><strong>Office Address:</strong> No. 1055, 4th Floor, Building A,</p>
+                        <p>International Business Technology Incubator,</p>
+                        <p>Haikou, Hainan 570000, China</p>
+                        <p><strong>Factory Address:</strong> No. 36, Zhenbei Road, Nanhai District,</p>
+                        <p>Foshan City, Guangdong, 528010, China</p>
+                        <p>Phone No. 0086-17589868573 (Whatsapp)</p>
+                        <p>Contact: contactgnord@gmail.com</p>
+                    </address>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-nav">
+                        <a href="faq.html" class="footer-link" aria-label="FAQ">FAQ</a>
+                        <a href="partner-login.html" class="footer-link" aria-label="Partner Login">Partner Login</a>
+                    </div>
+                </div>
+                
+                <div class="social-links">
+                    <a href="https://www.facebook.com" class="social-link" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M18.77,7.46H14.5v-1.9c0-.9.6-1.1,1-1.1h3V.5h-4.33C10.24.5,9.5,3.44,9.5,5.32v2.15h-3v4h3v12h5v-12h3.85l.42-4Z"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.instagram.com" class="social-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M12,2.16c3.2,0,3.58,0,4.85.07,3.25.15,4.77,1.69,4.92,4.92.06,1.27.07,1.65.07,4.85s0,3.58-.07,4.85c-.15,3.23-1.66,4.77-4.92,4.92-1.27.06-1.65.07-4.85.07s-3.58,0-4.85-.07c-3.26-.15-4.77-1.7-4.92-4.92-.06-1.27-.07-1.65-.07-4.85s0-3.58.07-4.85C2.38,3.92,3.9,2.38,7.15,2.23,8.42,2.18,8.8,2.16,12,2.16ZM12,0C8.74,0,8.33,0,7.05.07c-4.35.2-6.78,2.62-7,7C0,8.33,0,8.74,0,12s0,3.67.07,4.95c.2,4.36,2.62,6.78,7,7C8.33,24,8.74,24,12,24s3.67,0,4.95-.07c4.35-.2,6.78-2.62,7-7C24,15.67,24,15.26,24,12s0-3.67-.07-4.95c-.2-4.35-2.62-6.78-7-7C15.67,0,15.26,0,12,0Zm0,5.84A6.16,6.16,0,1,0,18.16,12,6.16,6.16,0,0,0,12,5.84ZM12,16a4,4,0,1,1,4-4A4,4,0,0,1,12,16ZM18.41,4.15a1.44,1.44,0,1,0,1.44,1.44A1.44,1.44,0,0,0,18.41,4.15Z"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.youtube.com" class="social-link" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M23.5,6.19a3.02,3.02,0,0,0-2.12-2.14C19.5,3.5,12,3.5,12,3.5s-7.5,0-9.38.55A3.02,3.02,0,0,0,.5,6.19,31.64,31.64,0,0,0,0,12a31.64,31.64,0,0,0,.5,5.81,3.02,3.02,0,0,0,2.12,2.14c1.88.55,9.38.55,9.38.55s7.5,0,9.38-.55a3.02,3.02,0,0,0,2.12-2.14A31.64,31.64,0,0,0,24,12,31.64,31.64,0,0,0,23.5,6.19ZM9.55,15.57V8.43L15.82,12Z"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.tiktok.com" class="social-link" aria-label="TikTok" target="_blank" rel="noopener noreferrer">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M19.59,6.69a4.83,4.83,0,0,1-3.77-4.25V2h-3.45v13.67a2.89,2.89,0,0,1-5.2,1.74,2.89,2.89,0,0,1,2.31-4.64,2.93,2.93,0,0,1,.88.13V9.4a6.84,6.84,0,0,0-1-.05A6.33,6.33,0,0,0,5,20.1a6.34,6.34,0,0,0,10.86-4.43v-7a8.16,8.16,0,0,0,4.77,1.52v-3.4a4.85,4.85,0,0,1-1-.1Z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2021 Gnord Strular Furniture & Interior Solution. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="admin-dashboard.js"></script>
+</body>
+</html>
