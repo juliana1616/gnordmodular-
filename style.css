@@ -352,6 +352,40 @@ ul {
     font-size: 1.125rem;
 }
 
+/* About Us Section */
+.about-section {
+    padding: 3rem 0 5rem;
+}
+
+.about-section .container {
+    max-width: 980px;
+}
+
+.about-section h2 {
+    margin-bottom: 1rem;
+}
+
+.about-section h3 {
+    margin: 1.75rem 0 0.65rem;
+}
+
+.about-section p,
+.about-section li {
+    line-height: 1.75;
+}
+
+.about-section p {
+    margin-bottom: 1rem;
+}
+
+.about-section ul {
+    margin: 0.35rem 0 1.25rem;
+}
+
+.about-section li + li {
+    margin-top: 0.65rem;
+}
+
 /* ========================================
    PRODUCTS SECTION
    ======================================== */
