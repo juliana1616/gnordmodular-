@@ -52,106 +52,99 @@ function initMobileMenu() {
 
 /**
  * Hero Image Slider
- * Auto-advances every 2 seconds
  */
 function initHeroSlider() {
-    const slides = document.querySelectorAll('.hero .slide');
-    const dots = document.querySelectorAll('.hero .dot');
-    const prevBtn = document.querySelector('.hero .slider-btn.prev');
-    const nextBtn = document.querySelector('.hero .slider-btn.next');
-    
-    if (slides.length === 0) return;
-    
-    let currentSlide = 0;
-    let slideInterval;
-    const slideDuration = 3600; // 3.6 seconds
-    
-    function showSlide(index) {
-        // Remove active class from all slides and dots
-        slides.forEach(slide => slide.classList.remove('active'));
-        dots.forEach(dot => {
-            dot.classList.remove('active');
-            dot.setAttribute('aria-selected', 'false');
-        });
-        
-        // Add active class to current slide and dot
-        slides[index].classList.add('active');
-        if (dots[index]) {
-            dots[index].classList.add('active');
-            dots[index].setAttribute('aria-selected', 'true');
+    const slider = document.querySelector('.hero-slider');
+    if (!slider) return;
+
+    const slides = Array.from(slider.querySelectorAll('.slide'));
+    const dots = Array.from(slider.querySelectorAll('.dot'));
+    const images = slides.map(slide => slide.querySelector('img'));
+    if (images.length === 0) return;
+
+    let requestedIndex = 0;
+    let requestId = 0;
+    let timer;
+    let isHovering = false;
+    let isLoading = false;
+    const slideDuration = 3600;
+
+    function prepareImage(image) {
+        if (image.dataset.slideSrc) {
+            image.sizes = image.dataset.slideSizes;
+            image.srcset = image.dataset.slideSrcset;
+            image.src = image.dataset.slideSrc;
+            delete image.dataset.slideSrc;
+            delete image.dataset.slideSrcset;
+            delete image.dataset.slideSizes;
         }
-        
-        currentSlide = index;
+        return image.decode();
     }
-    
-    function nextSlide() {
-        const next = (currentSlide + 1) % slides.length;
-        showSlide(next);
+
+    function scheduleNextSlide() {
+        clearTimeout(timer);
+        if (!isHovering && !isLoading) {
+            timer = setTimeout(() => showSlide(requestedIndex + 1), slideDuration);
+        }
     }
-    
-    function prevSlide() {
-        const prev = (currentSlide - 1 + slides.length) % slides.length;
-        showSlide(prev);
+
+    async function showSlide(index) {
+        clearTimeout(timer);
+        const target = (index + slides.length) % slides.length;
+        const currentRequest = ++requestId;
+        requestedIndex = target;
+        isLoading = true;
+
+        // Keep the current slide visible while the requested photo loads.
+        const ready = await prepareImage(images[target]).then(() => true, () => false);
+        if (currentRequest !== requestId) return;
+
+        if (ready) {
+            slides.forEach((slide, i) => slide.classList.toggle('active', i === target));
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === target);
+                dot.setAttribute('aria-selected', String(i === target));
+            });
+        }
+
+        // Fetch just the next photo once the current one is ready.
+        const nextImage = images[(target + 1) % images.length];
+        if (nextImage.dataset.slideSrc) {
+            nextImage.fetchPriority = 'low';
+            prepareImage(nextImage).catch(() => {});
+        }
+        isLoading = false;
+        scheduleNextSlide();
     }
-    
-    function startAutoSlide() {
-        slideInterval = setInterval(nextSlide, slideDuration);
-    }
-    
-    function stopAutoSlide() {
-        clearInterval(slideInterval);
-    }
-    
-    // Event listeners
-    if (nextBtn) {
-        nextBtn.addEventListener('click', () => {
-            stopAutoSlide();
-            nextSlide();
-            startAutoSlide();
-            trackEvent('engagement', 'slider_nav', 'next');
-        });
-    }
-    
-    if (prevBtn) {
-        prevBtn.addEventListener('click', () => {
-            stopAutoSlide();
-            prevSlide();
-            startAutoSlide();
-            trackEvent('engagement', 'slider_nav', 'prev');
-        });
-    }
-    
+
+    slider.querySelector('.slider-btn.next')?.addEventListener('click', () => {
+        showSlide(requestedIndex + 1);
+        trackEvent('engagement', 'slider_nav', 'next');
+    });
+
+    slider.querySelector('.slider-btn.prev')?.addEventListener('click', () => {
+        showSlide(requestedIndex - 1);
+        trackEvent('engagement', 'slider_nav', 'prev');
+    });
+
     dots.forEach((dot, index) => {
         dot.addEventListener('click', () => {
-            stopAutoSlide();
             showSlide(index);
-            startAutoSlide();
             trackEvent('engagement', 'slider_dot', `slide_${index + 1}`);
         });
     });
-    
-    // Pause on hover
-    const slider = document.querySelector('.hero-slider');
-    let isHovering = false;
-    
-    if (slider) {
-        slider.addEventListener('mouseenter', () => {
-            isHovering = true;
-            stopAutoSlide();
-        });
-        slider.addEventListener('mouseleave', () => {
-            isHovering = false;
-            startAutoSlide();
-        });
-    }
-    
-    // Start auto-slide after a short delay to ensure proper initialization
-    setTimeout(() => {
-        // Only start if not hovering
-        if (!isHovering) {
-            startAutoSlide();
-        }
-    }, 500);
+
+    slider.addEventListener('mouseenter', () => {
+        isHovering = true;
+        clearTimeout(timer);
+    });
+
+    slider.addEventListener('mouseleave', () => {
+        isHovering = false;
+        scheduleNextSlide();
+    });
+
+    showSlide(0);
 }
 
 /**
