@@ -12,10 +12,8 @@
     <meta property="og:title" content="Product Details | Gnord Strular Furniture & Interior Solution">
     <meta property="og:description" content="Explore our custom cabinetry and wardrobe solutions with detailed specifications and images.">
     <meta property="og:type" content="product">
-    <meta property="og:url" content="https://your-domain.com/product-detail.html">
+    <meta property="og:url" content="https://gnordmodularfurniture.com/product-detail.html">
     
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://your-domain.com/product-detail.html">
     
     <title>Product Details | Gnord Strular Furniture & Interior Solution</title>
     
@@ -141,6 +139,19 @@
             return urlParams.get(param);
         }
         
+        // Google can read this canonical after rendering the selected product.
+        const canonicalProductId = getUrlParam('product');
+        const canonicalUrl = new URL('https://gnordmodularfurniture.com/product-detail.html');
+        if (canonicalProductId && Object.hasOwn(productData, canonicalProductId)) {
+            canonicalUrl.searchParams.set('category', 'ply-osb');
+            canonicalUrl.searchParams.set('product', canonicalProductId);
+        }
+        const canonicalLink = document.createElement('link');
+        canonicalLink.rel = 'canonical';
+        canonicalLink.href = canonicalUrl.href;
+        document.head.appendChild(canonicalLink);
+        document.querySelector('meta[property="og:url"]').content = canonicalUrl.href;
+
         // Function to update product detail page
         function updateProductDetail() {
             const productId = getUrlParam('product');

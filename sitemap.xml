@@ -1,50 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Homepage -->
-  <url>
-    <loc>https://your-domain.com/</loc>
-    <lastmod>2026-03-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-  
-  <!-- Product Detail Page -->
-  <url>
-    <loc>https://your-domain.com/product-detail.html</loc>
-    <lastmod>2026-03-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
-  <!-- Ply&OSB Section (Anchor Link) -->
-  <url>
-    <loc>https://your-domain.com/#ply-osb</loc>
-    <lastmod>2026-03-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <!-- Purewood Section (Anchor Link) -->
-  <url>
-    <loc>https://your-domain.com/#purewood</loc>
-    <lastmod>2026-03-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <!-- Stainless Steel Section (Anchor Link) -->
-  <url>
-    <loc>https://your-domain.com/#stainless-steel</loc>
-    <lastmod>2026-03-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <!-- Contact/Work With Us Section (Anchor Link) -->
-  <url>
-    <loc>https://your-domain.com/#work-with-us</loc>
-    <lastmod>2026-03-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
+  <url><loc>https://gnordmodularfurniture.com/</loc></url>
+  <url><loc>https://gnordmodularfurniture.com/faq.html</loc></url>
+  <url><loc>https://gnordmodularfurniture.com/product-detail.html?category=ply-osb&amp;product=1</loc></url>
+  <url><loc>https://gnordmodularfurniture.com/product-detail.html?category=ply-osb&amp;product=2</loc></url>
+  <url><loc>https://gnordmodularfurniture.com/product-detail.html?category=ply-osb&amp;product=3</loc></url>
+  <url><loc>https://gnordmodularfurniture.com/product-detail.html?category=ply-osb&amp;product=4</loc></url>
+  <url><loc>https://gnordmodularfurniture.com/product-detail.html?category=ply-osb&amp;product=5</loc></url>
+  <url><loc>https://gnordmodularfurniture.com/product-detail.html?category=ply-osb&amp;product=6</loc></url>
+  <url><loc>https://gnordmodularfurniture.com/product-detail.html?category=ply-osb&amp;product=7</loc></url>
+  <url><loc>https://gnordmodularfurniture.com/product-detail.html?category=ply-osb&amp;product=8</loc></url>
+  <url><loc>https://gnordmodularfurniture.com/product-detail.html?category=ply-osb&amp;product=9</loc></url>
 </urlset>
