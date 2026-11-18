@@ -117,8 +117,8 @@
             </div>
             <div class="hero-text g-hero-inner">
 <h1>Custom Cabinetry from China. Without the Guesswork.</h1>
-<p class="g-primary">We manufacture custom kitchens, wardrobes and modular furniture in Foshan—and coordinate selected interior materials through trusted specialist partners.</p>
-<p class="g-secondary">From technical drawings to final production details, we help you make informed decisions, avoid costly misunderstandings and manage your project with clarity.</p>
+<p class="g-primary">We manufacture custom kitchens, wardrobes and modular furniture in Foshan, China—and coordinate selected interior materials through trusted specialist partners.</p>
+<p class="g-secondary">Technical clarity, production detail and hands-on project coordination—from planning to shipment.</p>
 <div class="g-actions"><a class="g-button" href="https://wa.me/8617589868573?text=Hello%2C%20I%20found%20Gnord%20through%20your%20website%20and%20would%20like%20to%20discuss%20my%20project." target="_blank" rel="noopener noreferrer">Discuss Your Project</a><a class="g-button g-outline" href="#g-concept">See How We Work</a></div>
 </div>
         </section>
@@ -127,9 +127,10 @@
         <!-- LOCKED Concept 2 — approved copy, five interactive cards and demonstrations -->
         <section class="g-wrap" id="g-concept" aria-labelledby="g-concept-heading">
 <div class="g-heading"><div class="g-eyebrow">THE GNORD APPROACH</div>
-<h2 id="g-concept-heading">Great interiors start with<br>getting the details right.</h2>
+<h2 id="g-concept-heading">Great interiors start with getting the details right.</h2>
 <p class="g-intro">Sourcing custom interiors from China doesn't need to mean endless revisions, unanswered questions or unwelcome surprises. Explore five ways we help you navigate the details.</p>
 </div>
+<p class="g-swipe-hint" aria-hidden="true">Swipe to explore all five →</p>
 <div class="g-tabs" role="group" aria-label="Five sourcing concerns">
 <button class="g-tab active" data-idx="0" aria-pressed="true"><span class="g-tag">01 · DESIGN</span><b>Design lost in translation?</b><small>Technical details clarified</small></button>
 <button class="g-tab" data-idx="1" aria-pressed="false"><span class="g-tag">02 · REVISIONS</span><b>Revisions going in circles?</b><small>One approved master plan</small></button>
@@ -163,17 +164,17 @@ const d=data[i];root.querySelectorAll('.g-tab').forEach((b,j)=>{b.classList.togg
 root.dataset.selected=i;setText('g-cat',d.cat);setText('g-title',d.title);setText('g-description',d.desc);d.stages.forEach((t,j)=>setText('g-s'+(j+1),t));setText('g-artifact',d.artifact);
 }
 root.querySelectorAll('.g-tab').forEach((b,i)=>b.addEventListener('click',()=>choose(i)));
-let focusBack=null;
+let focusBack=null;let previousOverflow='';
 function open(){
  focusBack=document.activeElement;
  const d=data[Number(root.dataset.selected||0)];
  setText('g-modal-title',d.modal);setText('g-client',d.client);setText('g-location','Location: '+d.location);setText('g-type',d.type);setText('g-context',d.context);setText('g-challenge',d.challenge);setText('g-solution',d.solution);setText('g-docname',d.doc);setText('g-docstate',d.state);setText('g-result',d.result);
  const thead=$('g-thead'),tbody=$('g-tbody');thead.replaceChildren();tbody.replaceChildren();
  const hr=document.createElement('tr');d.heads.forEach(v=>{const th=document.createElement('th');th.textContent=v;hr.appendChild(th)});thead.appendChild(hr);
- d.rows.forEach(row=>{const tr=document.createElement('tr');row.forEach(val=>{const td=document.createElement('td');td.textContent=val;tr.appendChild(td)});tbody.appendChild(tr)});
- $('g-backdrop').hidden=false;$('g-close').focus();
+ d.rows.forEach(row=>{const tr=document.createElement('tr');row.forEach(val=>{const td=document.createElement('td');td.textContent=val;td.setAttribute('data-label',d.heads[tr.children.length]||'');tr.appendChild(td)});tbody.appendChild(tr)});
+ previousOverflow=document.body.style.overflow;document.body.style.overflow='hidden';$('g-backdrop').hidden=false;$('g-close').focus();
 }
-function close(){$('g-backdrop').hidden=true;if(focusBack)focusBack.focus()}
+function close(){$('g-backdrop').hidden=true;document.body.style.overflow=previousOverflow;if(focusBack)focusBack.focus()}
 $('g-open').addEventListener('click',open);$('g-close').addEventListener('click',close);
 $('g-backdrop').addEventListener('click',e=>{if(e.target===$('g-backdrop'))close()});
 root.addEventListener('keydown',e=>{if($('g-backdrop').hidden)return;if(e.key==='Escape')close();if(e.key==='Tab'){const els=[...$('g-backdrop').querySelectorAll('button,a[href]')].filter(el=>el.offsetParent!==null);if(!els.length)return;const first=els[0],last=els[els.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
