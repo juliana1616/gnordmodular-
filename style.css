@@ -1617,3 +1617,37 @@ tr:hover {
 #about h3 {
     max-width: 920px;
 }
+
+/* GNORD interactive concern close control and readable demonstration rows */
+#g-concept .g-detail {
+    position: relative;
+    padding-top: 51px;
+}
+#g-concept .g-detail-close {
+    position: absolute;
+    right: 12px;
+    top: 10px;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    border: 1px solid #535353;
+    color: #f8f7f5;
+    background: #2a2a2a;
+    font-size: 25px;
+    line-height: 1;
+    cursor: pointer;
+}
+#g-concept .g-detail-close:hover {
+    background: #383838;
+    border-color: #b58a58;
+}
+#g-concept .g-detail-close:focus-visible {
+    outline: 3px solid #e8c89e;
+    outline-offset: 2px;
+}
+#g-concept .g-doc tbody tr:hover {
+    background-color: transparent;
+}
