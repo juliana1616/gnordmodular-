@@ -1591,3 +1591,29 @@ tr:hover {
 .whatsapp-float .whatsapp-text{display:inline;font-size:14px;font-weight:650;white-space:nowrap}
 .whatsapp-float svg{width:29px;height:29px;flex:0 0 29px}
 @media(max-width:700px){.whatsapp-float{width:54px;height:54px;min-height:54px;max-width:54px;padding:0;right:16px;bottom:max(18px,env(safe-area-inset-bottom));border-radius:50%;gap:0}.whatsapp-float .whatsapp-text{display:none}.whatsapp-float svg{width:28px;height:28px;flex-basis:28px}}
+
+
+/* Home section grid alignment — shared left/right edges without widening About Us copy */
+#g-concept {
+    padding-left: 16px;
+    padding-right: 16px;
+}
+#g-concept .g-heading,
+#g-concept .g-tabs,
+#g-concept .g-detail,
+#g-concept .g-footer {
+    max-width: 1168px; /* 1200px .container minus its 16px side padding */
+    margin-left: auto;
+    margin-right: auto;
+}
+#g-concept .g-heading,
+#g-concept .g-footer {
+    padding-left: 0;
+    padding-right: 0;
+}
+#about .container {
+    max-width: var(--container-max);
+}
+#about h3 {
+    max-width: 920px;
+}
