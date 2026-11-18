@@ -139,6 +139,7 @@
 <button class="g-tab" data-idx="4" aria-expanded="false" aria-controls="g-detail"><span class="g-tag">05 · SUPPORT</span><b>Still chasing answers?</b><small>Clear project ownership</small><span class="g-explore" aria-hidden="true">Explore ↗</span></button>
 </div>
 <div class="g-detail" id="g-detail" aria-live="polite" hidden>
+<button type="button" class="g-detail-close" id="g-detail-close" aria-label="Close concern details" title="Close details">×</button>
 <div><div class="g-tag" id="g-cat">01 / TECHNICAL CLARITY</div><h3 id="g-title">The small details make a big difference.</h3>
 <p id="g-description">Appliance clearances, cabinet dimensions, fittings and installation conditions all need to work together. We identify and resolve technical questions before drawings go to production.</p>
 <button class="g-examplebtn" id="g-open" aria-haspopup="dialog">See It in Practice ↗</button></div>
@@ -184,6 +185,7 @@ function choose(i){
  }
 }
 root.querySelectorAll('.g-tab').forEach((b,i)=>b.addEventListener('click',()=>choose(i)));
+$('g-detail-close').addEventListener('click',()=>{if(selected<0)return;const i=selected;choose(i);root.querySelector('.g-tab[data-idx="'+i+'"]').focus()});
 let focusBack=null;let previousOverflow='';
 function open(){
  focusBack=document.activeElement;
