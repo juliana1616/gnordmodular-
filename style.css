@@ -1577,3 +1577,15 @@ tr:hover {
  .whatsapp-float svg{width:28px;height:28px}
 }
 @media(prefers-reduced-motion:reduce){#g-concept .g-tab:hover,.whatsapp-float:hover{transform:none}}
+
+/* Final two approved UX changes, 18 Nov 2026 */
+#g-concept .g-detail[hidden]{display:none !important}
+#g-concept .g-tab .g-explore{display:block;margin-top:0;color:#d4ac7c;font-size:12px;font-weight:700;letter-spacing:.01em}
+#g-concept .g-tab{gap:10px}
+#g-concept .g-tab small{margin-top:auto}
+#g-concept .g-tab:focus-visible{outline:3px solid #e8c89e;outline-offset:3px}
+#g-concept .g-detail{scroll-margin-top:78px}
+.whatsapp-float{width:172px;max-width:calc(100vw - 32px);min-height:52px;padding:10px 14px;justify-content:center;gap:12px;text-decoration:none}
+.whatsapp-float .whatsapp-text{display:inline;font-size:14px;font-weight:650;white-space:nowrap}
+.whatsapp-float svg{width:29px;height:29px;flex:0 0 29px}
+@media(max-width:700px){.whatsapp-float{width:54px;height:54px;min-height:54px;max-width:54px;padding:0;right:16px;bottom:max(18px,env(safe-area-inset-bottom));border-radius:50%;gap:0}.whatsapp-float .whatsapp-text{display:none}.whatsapp-float svg{width:28px;height:28px;flex-basis:28px}}
