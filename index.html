@@ -36,8 +36,6 @@
         gtag('js', new Date());
         gtag('config', 'G-YR3MFNH755');
     </script>
-    <!-- Google reCAPTCHA v3 -->
-    <script defer src="https://www.google.com/recaptcha/api.js?render=YOUR_RECAPTCHA_SITE_KEY"></script>
 </head>
 <body>
     <!-- Header & Navigation -->
@@ -503,7 +501,9 @@ detail.hidden=true;
                         <textarea id="message" name="message" rows="5" required aria-required="true" placeholder="Tell us about your project..."></textarea>
                     </div>
                     
-                    <button type="submit" class="btn btn-submit" data-track="form-submit">Send Message</button>
+                    <p class="form-note" style="margin-top:14px;font-size:13px;line-height:1.6;">Your form details will open in WhatsApp for you to review and send. You can attach your floor plan there, or email drawings to <a href="mailto:contactgnord@gmail.com">contactgnord@gmail.com</a>. This form does not upload files directly.</p>
+                    <button type="submit" class="btn btn-submit" data-track="form-submit">Continue in WhatsApp to Send ↗</button>
+                    <p id="gn-enquiry-handoff" class="form-note" role="status" hidden style="margin-top:13px;font-size:13px;line-height:1.6;"></p>
                 </form>
             </div>
         </section>
