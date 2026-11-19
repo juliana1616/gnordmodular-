@@ -497,16 +497,25 @@ detail.hidden=true;
                         </select>
                     </div>
                     
-                    <p class="form-note"><small>Note: We only can do several countries DDP service.</small></p>
+                    <p class="form-note"><small>Note: DDP service is available only for selected countries.</small></p>
                     
                     <div class="form-group">
                         <label for="message">Message <span aria-label="required">*</span></label>
                         <textarea id="message" name="message" rows="5" required aria-required="true" placeholder="Tell us about your project..."></textarea>
                     </div>
                     
-                    <p class="form-note" style="margin-top:14px;font-size:13px;line-height:1.6;">Your form details will open in WhatsApp for you to review and send. You can attach your floor plan there, or email drawings to <a href="mailto:contactgnord@gmail.com">contactgnord@gmail.com</a>. This form does not upload files directly.</p>
-                    <button type="submit" class="btn btn-submit" data-track="form-submit">Continue in WhatsApp to Send ↗</button>
-                    <p id="gn-enquiry-handoff" class="form-note" role="status" hidden style="margin-top:13px;font-size:13px;line-height:1.6;"></p>
+                    <div class="form-group">
+                        <label for="project-attachment">Attach PDF or CAD drawing (optional)</label>
+                        <input type="file" id="project-attachment" name="project-attachment" accept=".pdf,.dwg,.dxf,.skp,.step,.stp,.igs,.iges" aria-describedby="gn-attachment-help">
+                        <p id="gn-attachment-help" class="form-note"><small>PDF, DWG, DXF, SKP, STEP, STP, IGS or IGES — up to 3 MB. For larger drawings, email <a href="mailto:contactgnord@gmail.com">contactgnord@gmail.com</a>.</small></p>
+                    </div>
+                    <div class="form-group gn-honeypot" aria-hidden="true" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden;">
+                        <label for="gn-website">Website (leave blank)</label>
+                        <input type="text" id="gn-website" name="website" tabindex="-1" autocomplete="off">
+                    </div>
+                    <p class="form-note" style="margin-top:14px;font-size:13px;line-height:1.6;">Submit your enquiry and optional drawing to <strong>contactgnord@gmail.com</strong>. We'll confirm receipt once the email service is connected. Your message won't be marked as sent unless the website receives delivery confirmation.</p>
+                    <button type="submit" class="btn btn-submit" data-track="form-submit">Submit Enquiry</button>
+                    <p id="gn-enquiry-handoff" class="form-note" role="status" aria-live="polite" hidden style="margin-top:13px;font-size:13px;line-height:1.6;"></p>
                 </form>
             </div>
         </section>
