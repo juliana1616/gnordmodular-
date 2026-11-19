@@ -1,17 +1,31 @@
-/* GNORD preview: six-step timeline, policy dialogs, and enquiry intent selector. */
+/* GNORD review preview: six-stage journey and Project Essentials dialogs. */
 (function(){
   const root=document.getElementById('gnord-journey');
   if(!root)return;
   const tabs=Array.from(root.querySelectorAll('[data-gn-step]'));
   const panels=Array.from(root.querySelectorAll('.gn-step-panel'));
+  let active=-1;
   function activate(i,focus){
+    active=i;
     tabs.forEach((tab,j)=>{
       const selected=j===i;
       tab.setAttribute('aria-selected',String(selected));
+      tab.setAttribute('aria-expanded',String(selected));
       tab.tabIndex=selected?0:-1;
     });
     panels.forEach((panel,j)=>{panel.hidden=j!==i});
     if(focus)tabs[i].focus();
+  }
+  function collapse(){
+    const previous=active;
+    active=-1;
+    tabs.forEach(tab=>{
+      tab.setAttribute('aria-selected','false');
+      tab.setAttribute('aria-expanded','false');
+      tab.tabIndex=0;
+    });
+    panels.forEach(panel=>{panel.hidden=true});
+    if(previous>=0)tabs[previous].focus();
   }
   tabs.forEach((tab,i)=>{
     tab.addEventListener('click',()=>activate(i,false));
@@ -24,7 +38,9 @@
       if(j!==null){e.preventDefault();activate(j,true)}
     });
   });
+  root.querySelectorAll('[data-gn-stage-close]').forEach(btn=>btn.addEventListener('click',collapse));
   activate(0,false);
+
   const dialogs=Array.from(root.querySelectorAll('dialog.gn-dialog'));
   root.querySelectorAll('[data-gn-term-open]').forEach(button=>{
     button.addEventListener('click',()=>{
@@ -48,23 +64,4 @@
       }
     });
   });
-  const sourcing=document.getElementById('gnord-sourcing');
-  if(sourcing){
-    const opts=Array.from(sourcing.querySelectorAll('[data-gn-scope]'));
-    const note=sourcing.querySelector('#gn-scope-current');
-    const link=sourcing.querySelector('#gn-scope-whatsapp');
-    const scopes=[
-      {name:'GNORD-manufactured cabinetry',detail:'Custom kitchens, wardrobes and modular cabinetry — designed and manufactured by GNORD.'},
-      {name:'Coordinated interior materials',detail:'Selected stone, tiles, vanity and related materials through specialist manufacturing partners.'},
-      {name:'Related GNORD businesses',detail:'Explore windows or hospitality interiors with related GNORD specialist businesses; responsibilities are defined for each scope.'}
-    ];
-    function select(i){
-      opts.forEach((b,j)=>b.setAttribute('aria-pressed',String(i===j)));
-      note.textContent=scopes[i].detail;
-      const message='Hello, I found GNORD through your website. I would like to discuss '+scopes[i].name.toLowerCase()+'. My project is in [city/country]. Please advise next steps.';
-      link.href='https://wa.me/8617589868573?text='+encodeURIComponent(message);
-    }
-    opts.forEach((b,i)=>b.addEventListener('click',()=>select(i)));
-    select(0);
-  }
 })();
