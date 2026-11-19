@@ -148,3 +148,79 @@
  .gn-first-actions{align-items:stretch}
  .gn-panel-link{width:100%;text-align:center}
 }
+
+
+/* 2026-11-19 preview refinements — tighter CTA, clearer reading panels and form return */
+#g-concept .g-footer{
+  justify-content:center;
+  align-items:center;
+  column-gap:24px;
+  row-gap:12px;
+  padding-top:18px;
+  padding-bottom:23px;
+}
+#g-concept .g-footer span{
+  color:#dec4a5;
+  font-weight:500;
+  font-size:clamp(14px,1.1vw,16px);
+  line-height:1.6;
+  max-width:none;
+}
+#g-concept .g-detail{
+  background-color:#252421;
+  border-color:#49433b;
+  box-shadow:0 6px 22px rgba(0,0,0,.13);
+}
+#g-concept .g-modal{
+  background-color:#252422;
+  border-color:#50483e;
+}
+#g-concept .g-mini{background-color:#2b2a27;border-color:#47443e}
+#g-concept .g-mini.after{background-color:#302c26;border-color:#b58a58}
+#g-concept .g-doc{background-color:#272623}
+#g-concept .g-dochead{background-color:#32302c}
+#g-concept .g-doc tbody tr:nth-child(even){background-color:#2b2a28}
+#g-concept .g-doc tbody tr:hover{background-color:#302e2a}
+#g-concept .g-outcome{background-color:#302d27}
+#gnord-journey .gn-step-panel{
+  background-color:#262522;
+  border-color:#4a443c;
+  box-shadow:0 6px 22px rgba(0,0,0,.12);
+}
+#gnord-journey .gn-outcome{
+  background:#2c2a26;
+  border-radius:0 6px 6px 0;
+}
+#gnord-journey .gn-dialog{
+  background:#272521;
+  border-color:#55493a;
+}
+#gnord-journey .gn-dialog-top{background:#272521}
+#gnord-journey .gn-dialog th{background:#34312c}
+#gnord-journey .gn-dialog td{background:#2b2a27}
+#gnord-journey .gn-dialog tr:hover td{background:#2b2a27}
+#gn-return-nav{
+  max-width:1200px;
+  margin:-.9rem auto 1.35rem;
+  padding:0 16px;
+  display:flex;
+  justify-content:center;
+}
+#gn-return-nav[hidden]{display:none !important}
+#gn-return-button{
+  background:#302a23;
+  color:#f1d2aa;
+  border:1px solid #94724d;
+  border-radius:7px;
+  padding:10px 17px;
+  font:600 14px/1.4 system-ui,-apple-system,"Segoe UI",sans-serif;
+  cursor:pointer;
+}
+#gn-return-button:hover{background:#413527;border-color:#c29461}
+#gn-return-button:focus-visible{outline:3px solid #e8c89e;outline-offset:3px}
+@media(max-width:700px){
+  #g-concept .g-footer{flex-direction:column;align-items:stretch;gap:12px}
+  #g-concept .g-footer span{font-size:15px;max-width:none}
+  #g-concept .g-footer a{text-align:center}
+  #gn-return-nav{margin:-.8rem auto 1.2rem}
+}
