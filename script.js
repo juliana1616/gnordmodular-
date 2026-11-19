@@ -349,30 +349,35 @@ function initContactForm() {
         }
         
         if (isValid) {
-            // Get reCAPTCHA token
-            grecaptcha.ready(function() {
-                grecaptcha.execute('YOUR_RECAPTCHA_SITE_KEY', {action: 'submit'}).then(function(token) {
-                    // Track form submission
-                    trackEvent('conversion', 'form_submit', 'contact_form');
-                    
-                    // Show success message
-                    showSuccessMessage(form);
-                    
-                    // Here you would typically send the data to your backend
-                    // For now, we'll just log it
-                    console.log('Form submitted:', {
-                        name: name.value,
-                        email: email.value,
-                        countryCode: document.getElementById('country-code').value,
-                        phone: phone.value,
-                        message: message.value,
-                        'g-recaptcha-response': token
-                    });
-                    
-                    // Reset form
-                    form.reset();
-                });
-            });
+            const selectedText = select => {
+                const opt=select.options[select.selectedIndex];
+                return opt ? opt.textContent.trim() : '';
+            };
+            const formFields = [
+                'GNORD Project Enquiry',
+                'Name: '+name.value.trim(),
+                'Email: '+email.value.trim(),
+                'Phone: '+(phone.value.trim() ? document.getElementById('country-code').value+' '+phone.value.trim() : 'Not provided'),
+                'Client type: '+selectedText(userType),
+                'Project city: '+projectCity.value.trim(),
+                'Compliance: '+(compliance.value==='other'?otherComplianceInput.value.trim():selectedText(compliance)),
+                'Design: '+selectedText(designInquiry),
+                'Import / delivery: '+selectedText(importSupport),
+                'Message: '+message.value.trim()
+            ];
+            const href='https://wa.me/8617589868573?text='+encodeURIComponent(formFields.join('\n'));
+            const status=document.getElementById('gn-enquiry-handoff');
+            if(status){
+                status.replaceChildren();
+                status.appendChild(document.createTextNode('Your details are prepared. Please review them and tap Send in WhatsApp; attach your floor plan or drawings there. Nothing has been sent by this website. '));
+                const link=document.createElement('a');
+                link.href=href;link.target='_blank';link.rel='noopener noreferrer';
+                link.textContent='Open WhatsApp enquiry ↗';
+                status.appendChild(link);
+                status.hidden=false;
+            }
+            trackEvent('conversion','enquiry_handoff','contact_form');
+            window.open(href,'_blank','noopener,noreferrer');
         }
     });
     
