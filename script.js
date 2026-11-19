@@ -252,7 +252,7 @@ function initContactForm() {
         });
     }
     
-    form.addEventListener('submit', function(e) {
+    form.addEventListener('submit', async function(e) {
         e.preventDefault();
         
         // Get form fields
@@ -349,35 +349,84 @@ function initContactForm() {
         }
         
         if (isValid) {
+            const status = document.getElementById('gn-enquiry-handoff');
+            const submitButton = form.querySelector('button[type="submit"]');
+            const drawing = document.getElementById('project-attachment');
+            const file = drawing && drawing.files ? drawing.files[0] : null;
+            const allowed = /\.(pdf|dwg|dxf|skp|step|stp|igs|iges)$/i;
+            const maxBytes = 3 * 1024 * 1024;
+            if (file && (!allowed.test(file.name) || file.size > maxBytes)) {
+                showError(drawing, 'Attach a PDF or CAD file no larger than 3 MB.');
+                if (status) {
+                    status.hidden = false;
+                    status.textContent = 'Please choose a supported PDF or CAD file up to 3 MB. Larger drawings may be emailed directly.';
+                }
+                return;
+            }
+            clearError(drawing);
             const selectedText = select => {
-                const opt=select.options[select.selectedIndex];
+                const opt = select.options[select.selectedIndex];
                 return opt ? opt.textContent.trim() : '';
             };
-            const formFields = [
-                'GNORD Project Enquiry',
-                'Name: '+name.value.trim(),
-                'Email: '+email.value.trim(),
-                'Phone: '+(phone.value.trim() ? document.getElementById('country-code').value+' '+phone.value.trim() : 'Not provided'),
-                'Client type: '+selectedText(userType),
-                'Project city: '+projectCity.value.trim(),
-                'Compliance: '+(compliance.value==='other'?otherComplianceInput.value.trim():selectedText(compliance)),
-                'Design: '+selectedText(designInquiry),
-                'Import / delivery: '+selectedText(importSupport),
-                'Message: '+message.value.trim()
-            ];
-            const href='https://wa.me/8617589868573?text='+encodeURIComponent(formFields.join('\n'));
-            const status=document.getElementById('gn-enquiry-handoff');
-            if(status){
-                status.replaceChildren();
-                status.appendChild(document.createTextNode('Your details are prepared. Please review them and tap Send in WhatsApp; attach your floor plan or drawings there. Nothing has been sent by this website. '));
-                const link=document.createElement('a');
-                link.href=href;link.target='_blank';link.rel='noopener noreferrer';
-                link.textContent='Open WhatsApp enquiry ↗';
-                status.appendChild(link);
-                status.hidden=false;
+            const request = {
+                name: name.value.trim(),
+                email: email.value.trim(),
+                phone: phone.value.trim() ? document.getElementById('country-code').value+' '+phone.value.trim() : '',
+                userType: selectedText(userType),
+                projectCity: projectCity.value.trim(),
+                compliance: compliance.value === 'other' ? otherComplianceInput.value.trim() : selectedText(compliance),
+                designInquiry: selectedText(designInquiry),
+                importSupport: selectedText(importSupport),
+                message: message.value.trim(),
+                website: document.getElementById('gn-website')?.value || ''
+            };
+            if (status) {
+                status.hidden = false;
+                status.textContent = 'Submitting your enquiry…';
             }
-            trackEvent('conversion','enquiry_handoff','contact_form');
-            window.open(href,'_blank','noopener,noreferrer');
+            if (submitButton) {
+                submitButton.disabled = true;
+                submitButton.textContent = 'Submitting…';
+            }
+            try {
+                if (file) {
+                    const bytes = new Uint8Array(await file.arrayBuffer());
+                    let binary = '';
+                    const chunkSize = 8192;
+                    for (let pos = 0; pos < bytes.length; pos += chunkSize) {
+                        binary += String.fromCharCode(...bytes.subarray(pos, pos + chunkSize));
+                    }
+                    request.attachment = {
+                        name: file.name,
+                        base64: btoa(binary)
+                    };
+                }
+                const response = await fetch('/api/contact', {
+                    method: 'POST',
+                    headers: {'Content-Type':'application/json'},
+                    body: JSON.stringify(request)
+                });
+                const result = await response.json().catch(() => ({}));
+                if (!response.ok || result.ok !== true) {
+                    throw new Error(result.error || 'We could not deliver your enquiry. Please email contactgnord@gmail.com directly.');
+                }
+                if (status) {
+                    status.hidden = false;
+                    status.textContent = 'Thank you. Your enquiry has been accepted by our email service. We will respond as soon as possible.';
+                }
+                trackEvent('conversion','form_submit','contact_form');
+                form.reset();
+            } catch(error) {
+                if (status) {
+                    status.hidden = false;
+                    status.textContent = (error && error.message ? error.message : 'Unable to submit your enquiry.') + ' If needed, email contactgnord@gmail.com.';
+                }
+            } finally {
+                if (submitButton) {
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Submit Enquiry';
+                }
+            }
         }
     });
     
