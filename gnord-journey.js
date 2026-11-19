@@ -41,6 +41,48 @@
   root.querySelectorAll('[data-gn-stage-close]').forEach(btn=>btn.addEventListener('click',collapse));
   activate(0,false);
 
+  // Contextual return to the exact viewport the visitor left, not just the section top.
+  const contact=document.getElementById('work-with-us');
+  const returnNav=document.getElementById('gn-return-nav');
+  const returnButton=document.getElementById('gn-return-button');
+  let returnContext=null;
+  function scrollMode(){
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth';
+  }
+  if(contact && returnNav && returnButton){
+    document.querySelectorAll('a[data-gn-return-label][href="#work-with-us"]').forEach(link=>{
+      link.addEventListener('click',event=>{
+        event.preventDefault();
+        returnContext={
+          scrollTop:window.scrollY,
+          sourceUrl:window.location.pathname+window.location.search+window.location.hash,
+          sourceLink:link,
+          label:link.dataset.gnReturnLabel || 'Previous Section'
+        };
+        returnButton.textContent='← Back to '+returnContext.label;
+        returnButton.setAttribute('aria-label','Return to '+returnContext.label);
+        returnNav.hidden=false;
+        window.history.pushState({gnEnquiryReturn:true},'', '#work-with-us');
+        contact.scrollIntoView({behavior:scrollMode(),block:'start'});
+      });
+    });
+    returnButton.addEventListener('click',()=>{
+      if(!returnContext)return;
+      const previous=returnContext;
+      returnContext=null;
+      returnNav.hidden=true;
+      window.history.replaceState(null,'',previous.sourceUrl);
+      previous.sourceLink.focus({preventScroll:true});
+      window.scrollTo({top:previous.scrollTop,behavior:scrollMode()});
+    });
+    window.addEventListener('popstate',()=>{
+      if(window.location.hash!=='#work-with-us'){
+        returnNav.hidden=true;
+        returnContext=null;
+      }
+    });
+  }
+
   const dialogs=Array.from(root.querySelectorAll('dialog.gn-dialog'));
   root.querySelectorAll('[data-gn-term-open]').forEach(button=>{
     button.addEventListener('click',()=>{
