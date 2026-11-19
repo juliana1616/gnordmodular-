@@ -104,3 +104,47 @@
   .gn-cta{white-space:normal;text-align:center}
 }
 @media(prefers-reduced-motion:reduce){.gn-step,.gn-term-button,.gn-scope-choice{transition:none}.gn-step:hover{transform:none}}
+
+
+/* Follow-up refinements: unobtrusive stage close controls, enquiry CTA and sourcing links */
+#gnord-journey,#g-concept,#work-with-us{scroll-margin-top:96px}
+.gn-step-panel{position:relative;padding-top:48px;padding-right:54px}
+.gn-step-close{
+  position:absolute;top:10px;right:12px;width:34px;height:34px;
+  border:1px solid #575757;border-radius:7px;background:#303030;color:#f8f7f5;
+  font-size:25px;line-height:1;display:flex;align-items:center;justify-content:center;
+  cursor:pointer
+}
+.gn-step-close:hover{background:#41392f;border-color:var(--gn-gold)}
+.gn-step-close:focus-visible,.gn-panel-link:focus-visible{outline:3px solid #e8c89e;outline-offset:2px}
+.gn-first-actions{
+  grid-column:1/-1;display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  border-top:1px solid #414141;padding-top:15px;margin-top:0
+}
+.gn-first-actions small{flex-basis:100%;color:#bcb8b1;font-size:12px;line-height:1.5}
+.gn-panel-link{
+  display:inline-block;padding:10px 14px;background:#b58a58;border:1px solid #b58a58;
+  border-radius:6px;color:#161616;font-size:13px;font-weight:750;text-decoration:none
+}
+.gn-panel-link:hover{background:#c8a274}
+.gn-panel-link-secondary{background:transparent;color:#f0ddc5;border-color:#8b744f}
+.gn-panel-link-secondary:hover{background:#342c24}
+.gn-preproducts-cta{
+  max-width:1200px;margin-inline:auto;padding:12px 16px 24px;
+  display:flex;justify-content:flex-end;background:#171717
+}
+.gn-preproducts-cta .gn-cta{min-width:260px;text-align:center}
+#g-concept .g-related{background:#292827;border:1px solid #5a4630;border-radius:9px;padding:15px;margin-top:18px;line-height:1.65}
+#g-concept .g-related[hidden]{display:none}
+#g-concept .g-related b{color:#f5f0e9;letter-spacing:.07em;font-size:12px}
+#g-concept .g-related p{margin:8px 0;color:#dedad3;font-size:14px}
+#g-concept .g-related a{color:#e3b783;text-decoration:underline;text-underline-offset:3px}
+#g-concept .g-related small{color:#bcb7b2}
+@media(max-width:700px){
+ .gn-step-panel{padding:48px 18px 20px}
+ .gn-step-close{top:9px;right:9px}
+ .gn-preproducts-cta{justify-content:stretch}
+ .gn-preproducts-cta .gn-cta{width:100%;min-width:0}
+ .gn-first-actions{align-items:stretch}
+ .gn-panel-link{width:100%;text-align:center}
+}
