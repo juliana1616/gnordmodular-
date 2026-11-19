@@ -225,3 +225,91 @@
   #g-concept .g-footer a{text-align:center}
   #gn-return-nav{margin:-.8rem auto 1.2rem}
 }
+
+
+/* Related GNORD specialist businesses — compact review section between products and About Us */
+.gn-related-businesses{
+  background:#171717;
+  color:#f5f3f0;
+  padding:22px 0 28px;
+}
+.gn-related-businesses .container{
+  max-width:1200px;
+  margin:0 auto;
+  padding:22px 26px 24px;
+  border-radius:12px;
+  background:#202020;
+}
+.gn-related-businesses h2{
+  margin:0 0 8px;
+  font-size:clamp(23px,2.2vw,30px);
+  line-height:1.25;
+  color:#f5f3f0;
+  font-weight:750;
+}
+.gn-related-intro{
+  margin:0 0 16px;
+  color:#c8c4bf;
+  font-size:clamp(14px,1.1vw,16px);
+  line-height:1.6;
+}
+.gn-related-tiles{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+}
+a.gn-related-tile{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  min-width:0;
+  gap:10px;
+  padding:18px;
+  background:#2b2926;
+  border:1px solid #65513b;
+  border-radius:10px;
+  color:#f5f3f0;
+  text-decoration:none;
+  transition:transform .18s ease,border-color .18s ease,background-color .18s ease;
+}
+a.gn-related-tile:hover{
+  background:#33302b;
+  border-color:#c69a68;
+  transform:translateY(-2px);
+}
+a.gn-related-tile:focus-visible{
+  outline:3px solid #e8c89e;
+  outline-offset:3px;
+}
+.gn-related-icon{color:#c69a68;flex:none}
+.gn-related-tile h3{
+  margin:0;
+  color:#fff;
+  font-size:clamp(15px,1.4vw,18px);
+  font-weight:700;
+  line-height:1.4;
+}
+.gn-related-tile p{
+  margin:0;
+  color:#d0c9c0;
+  font-size:14px;
+  line-height:1.5;
+}
+.gn-related-visit{
+  margin-top:auto;
+  padding-top:3px;
+  color:#d9af7c;
+  font-size:14px;
+  font-weight:650;
+  line-height:1.4;
+}
+@media(max-width:700px){
+ .gn-related-businesses{padding:14px 0 22px}
+ .gn-related-businesses .container{padding:18px 16px 20px;border-radius:9px}
+ .gn-related-tiles{grid-template-columns:1fr;gap:10px}
+ a.gn-related-tile{padding:16px}
+}
+@media(prefers-reduced-motion:reduce){
+ a.gn-related-tile{transition:none}
+ a.gn-related-tile:hover{transform:none}
+}
