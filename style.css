@@ -1728,3 +1728,7 @@ html{scroll-behavior:smooth}
  html{scroll-behavior:auto}
  #home .slide img{transition:none}
 }
+
+/* Footer navigation on project/portal pages without a standard footer */
+.page-top-footer{text-align:center;padding:18px 16px 12px;background:#1d1d1d;}
+.page-top-footer .back-to-top{margin:0;}
