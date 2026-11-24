@@ -161,7 +161,7 @@
             
             // Update page title and product-specific search metadata.
             document.title = `${product.name} | GNORD Custom Cabinetry & Modular Furniture`;
-            const plainDescription = product.description.replace(/<[^>]*>/g, ' ').replace(/\\s+/g, ' ').trim();
+            const plainDescription = product.description.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
             const seoDescription = `Explore ${product.name} custom cabinetry and furniture from GNORD, Foshan, China. ${plainDescription.slice(0, 75).trim()}`.slice(0, 160);
             document.querySelector('meta[name="description"]')?.setAttribute('content', seoDescription);
             document.querySelector('meta[property="og:title"]')?.setAttribute('content', document.title);
