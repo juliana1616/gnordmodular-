@@ -415,6 +415,8 @@ function initContactForm() {
                     status.textContent = 'Thank you. Your enquiry has been accepted by our email service. We will respond as soon as possible.';
                 }
                 trackEvent('conversion','form_submit','contact_form');
+                // GA4-recommended lead event: fire only after the email API accepts the enquiry.
+                trackEvent('conversion','generate_lead','website_enquiry_form');
                 form.reset();
             } catch(error) {
                 if (status) {
