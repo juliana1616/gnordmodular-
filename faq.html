@@ -27,7 +27,9 @@
     <link rel="stylesheet" href="style.css">
     
     <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YR3MFNH755"></script>
+    <script>window.gtag = function () {};</script>
+    <link rel="stylesheet" href="gnord-consent.css">
+    <script defer src="gnord-consent.js"></script>
     
     <!-- FAQ Structured Data -->
     <script type="application/ld+json">
@@ -159,12 +161,7 @@
     }
     </script>
     
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-YR3MFNH755');
-    </script>
+    
     <!-- Google reCAPTCHA v3 -->
 </head>
 <body id="page-top">
@@ -536,6 +533,7 @@
             
             <div class="footer-bottom">
                 <a href="#page-top" class="back-to-top" aria-label="Return to top of page">↑ Back to top</a>
+                <p class="gnord-cookie-footer"><a href="privacy.html">Privacy &amp; Cookies</a> · <button type="button" data-gnord-cookie-settings>Cookie settings</button></p>
                 <p class="copyright">2021 Gnord Strular Furniture & Interior Solution. All rights reserved.</p>
             </div>
         </div>
