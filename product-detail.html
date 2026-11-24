@@ -159,8 +159,37 @@
             
             if (!product) return;
             
-            // Update page title
-            document.title = `${product.name} | Gnord Strular Furniture & Interior Solution`;
+            // Update page title and product-specific search metadata.
+            document.title = `${product.name} | GNORD Custom Cabinetry & Modular Furniture`;
+            const plainDescription = product.description.replace(/<[^>]*>/g, ' ').replace(/\\s+/g, ' ').trim();
+            const seoDescription = `Explore ${product.name} custom cabinetry and furniture from GNORD, Foshan, China. ${plainDescription.slice(0, 75).trim()}`.slice(0, 160);
+            document.querySelector('meta[name="description"]')?.setAttribute('content', seoDescription);
+            document.querySelector('meta[property="og:title"]')?.setAttribute('content', document.title);
+            document.querySelector('meta[property="og:description"]')?.setAttribute('content', seoDescription);
+            if (product.images?.[0]?.src) {
+                const imageUrl = new URL(product.images[0].src, window.location.origin).href;
+                let ogImage = document.querySelector('meta[property="og:image"]');
+                if (!ogImage) {
+                    ogImage = document.createElement('meta');
+                    ogImage.setAttribute('property', 'og:image');
+                    document.head.appendChild(ogImage);
+                }
+                ogImage.setAttribute('content', imageUrl);
+            }
+            // Descriptive product data without unsupported prices, ratings or availability claims.
+            const productSchema = {
+                '@context': 'https://schema.org',
+                '@type': 'Product',
+                name: product.name,
+                description: plainDescription.slice(0, 1000),
+                image: (product.images || []).map(image => new URL(image.src, window.location.origin).href),
+                brand: { '@type': 'Brand', name: 'GNORD' },
+                url: canonicalUrl.href
+            };
+            const structuredData = document.createElement('script');
+            structuredData.type = 'application/ld+json';
+            structuredData.textContent = JSON.stringify(productSchema);
+            document.head.appendChild(structuredData);
             
             // Update product heading
             const heading = document.getElementById('product-detail-heading');
@@ -230,7 +259,7 @@
                 <nav aria-label="Breadcrumb" class="breadcrumb">
                     <ol>
                         <li><span class="breadcrumb-num">1.</span><a href="index.html">Home</a></li>
-                        <li><span class="breadcrumb-num">2.</span><a href="index.html#products">Products</a></li>
+                        <li><span class="breadcrumb-num">2.</span><a href="index.html#our-products">Products</a></li>
                         <li aria-current="page"><span class="breadcrumb-num">3.</span>Product Details</li>
                     </ol>
                 </nav>
