@@ -1,0 +1,42 @@
+.gnord-cookie-prompt {
+  position: fixed;
+  z-index: 9000;
+  bottom: 18px;
+  left: 18px;
+  width: min(410px, calc(100vw - 36px));
+  box-sizing: border-box;
+  border: 1px solid #a88254;
+  border-radius: 12px;
+  background: #222;
+  color: #f8f7f5;
+  padding: 16px 18px;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+  box-shadow: 0 10px 32px rgba(0,0,0,.35);
+}
+.gnord-cookie-prompt p { margin: 0 0 10px; color: inherit; }
+.gnord-cookie-prompt a { color: #e8c89e; text-decoration: underline; }
+.gnord-cookie-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.gnord-cookie-actions button {
+  border: 1px solid #b58a58;
+  border-radius: 7px;
+  padding: 9px 13px;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 600;
+}
+.gnord-cookie-decline { background: transparent; color: white; }
+.gnord-cookie-accept { background: #b58a58; color: #141414; }
+.gnord-cookie-actions button:focus-visible, [data-gnord-cookie-settings]:focus-visible {
+  outline: 3px solid #e8c89e;
+  outline-offset: 3px;
+}
+.gnord-cookie-footer { margin: 8px 0; font-size: 13px; }
+.gnord-cookie-footer a, .gnord-cookie-footer button {
+  color: inherit; background: none; border: none; text-decoration: underline;
+  cursor: pointer; font: inherit; padding: 0 4px;
+}
+@media (max-width: 700px) {
+  .gnord-cookie-prompt { bottom: 94px; left: 12px; width: calc(100vw - 24px); }
+}
